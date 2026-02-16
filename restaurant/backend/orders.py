@@ -1,12 +1,11 @@
 from datetime import datetime
-from .db_connection import get_db
+import json
+import os
+from db_connection import get_db
 
 def get_orders_collection():
     db = get_db()
     return db["orders"]
-
-import json
-import os
 
 def create_order(order_data: dict):
     """
@@ -15,16 +14,20 @@ def create_order(order_data: dict):
     print(f"DEBUG: Incoming Order Data -> {order_data}")
     
     order_doc = {
-        "user_mobile": order_data.get("mobile"),
-        "user_email": order_data.get("email"),
+        "customer_name": order_data.get("name"),
+        "customer_mobile": order_data.get("mobile"),
+        "delivery_address": order_data.get("address"),
+        "special_notes": order_data.get("notes"),
         "cart": order_data.get("cart"),
-        "total": order_data.get("total"),
-        "people": order_data.get("people"),
-        "appetite": order_data.get("appetite"),
-        "preference": order_data.get("preference"),
+        "total_amount": order_data.get("total"),
+        "people_count": order_data.get("people"),
+        "appetite_level": order_data.get("appetite"),
+        "food_preference": order_data.get("preference"),
         "payment_method": order_data.get("payment_method"),
         "payment_details": order_data.get("payment_details"),
-        "status": "Placed",
+        "upi_id": order_data.get("upi_id"),
+        "upi_app": order_data.get("upi_app"),
+        "order_status": "Placed",
         "created_at": datetime.utcnow().isoformat()
     }
 

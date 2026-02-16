@@ -1,6 +1,6 @@
 from datetime import datetime
 import random
-from .db_connection import get_db
+from db_connection import get_db
 
 def get_collection():
     db = get_db()
